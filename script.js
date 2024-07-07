@@ -10,6 +10,8 @@ fetch("users/data/user.json")
       return response.json()
 
     } ).then( githubUser => {
+     return new Promise( (resolve, reject) => {
+         
       let name = document.createElement("p")
       let img = document.createElement('img');
       img.src = githubUser.avatar_url;
@@ -17,5 +19,10 @@ fetch("users/data/user.json")
       name.innerHTML = githubUser.name;
       document.body.append(name);
       document.body.append(document.createElement('p').innerHTML = githubUser.location)
-      setTimeout( () => img.remove() , 3000 )
-    } )
+         
+      setTimeout( () => {
+          img.remove();
+          resolve(githubUser)
+      } , 3000 )
+     })
+} )
